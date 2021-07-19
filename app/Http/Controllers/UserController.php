@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
-use \App\Models\User;
 
 class UserController extends Controller
 {
     private $param;
-    
+
     public function __construct()
     {
         $this->param['title'] = 'User';
         $this->param['pageTitle'] = 'User';
         $this->param['pageIcon'] = 'users';
     }
-    
+
     public function index(Request $request)
     {
-        
         $this->param['btnRight']['text'] = 'Tambah User';
         $this->param['btnRight']['link'] = route('user.create');
 
@@ -28,7 +26,7 @@ class UserController extends Controller
             $getUsers = User::orderBy('name', 'ASC');
 
             if ($keyword) {
-                $getUsers->where('name', 'LIKE', "%$keyword%")->orWhere('email', 'LIKE', "%$keyword%");
+                $getUsers->where('name', 'LIKE', "%{$keyword}%")->orWhere('email', 'LIKE', "%{$keyword}%");
             }
 
             $this->param['user'] = $getUsers->paginate(10);
@@ -41,7 +39,6 @@ class UserController extends Controller
 
     public function create()
     {
-        
         $this->param['btnRight']['text'] = 'Lihat Data';
         $this->param['btnRight']['link'] = route('user.index');
 
@@ -58,15 +55,16 @@ class UserController extends Controller
             [
                 'required' => ':attribute tidak boleh kosong.',
                 'email' => 'Masukan email yang valid.',
-                'unique' => ':attribute telah terdaftar'
+                'unique' => ':attribute telah terdaftar',
             ],
             [
                 'name' => 'Nama',
                 'email' => 'Email',
             ]
         );
+
         try {
-            $newUser = new User;
+            $newUser = new User();
 
             $newUser->name = $request->get('name');
             $newUser->email = $request->get('email');
@@ -76,9 +74,9 @@ class UserController extends Controller
 
             return redirect()->route('user.index')->withStatus('Data berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->route('user.index')->withError('Terjadi kesalahan. : ' . $e->getMessage());
+            return redirect()->route('user.index')->withError('Terjadi kesalahan. : '.$e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('user.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+            return redirect()->route('user.index')->withError('Terjadi kesalahan pada database : '.$e->getMessage());
         }
     }
 
@@ -94,9 +92,9 @@ class UserController extends Controller
 
             return \view('user.edit-user', $this->param);
         } catch (\Exception $e) {
-            return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
+            return redirect()->back()->withError('Terjadi kesalahan : '.$e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+            return redirect()->back()->withError('Terjadi kesalahan pada database : '.$e->getMessage());
         }
     }
 
@@ -108,28 +106,28 @@ class UserController extends Controller
         $validatedData = $request->validate(
             [
                 'name' => 'required',
-                'email' => 'required|email' . $isUnique,
+                'email' => 'required|email'.$isUnique,
             ],
             [
                 'name.required' => ':attribute tidak boleh kosong.',
-                'email.required' => ':attribute tidak boleh kosong.'
+                'email.required' => ':attribute tidak boleh kosong.',
             ],
             [
                 'name' => 'Nama',
-                'email' => 'Email'
+                'email' => 'Email',
             ]
         );
-        try {
 
+        try {
             $user->name = $request->get('name');
             $user->email = $request->get('email');
             $user->save();
 
             return redirect()->route('user.index')->withStatus('Data berhasil diperbarui.');
         } catch (\Exception $e) {
-            return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
+            return redirect()->back()->withError('Terjadi kesalahan : '.$e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+            return redirect()->back()->withError('Terjadi kesalahan pada database : '.$e->getMessage());
         }
     }
 
@@ -142,9 +140,9 @@ class UserController extends Controller
 
             return redirect()->route('user.index')->withStatus('Data berhasil dihapus.');
         } catch (\Exception $e) {
-            return redirect()->route('user.index')->withError('Terjadi kesalahan : ' . $e->getMessage());
+            return redirect()->route('user.index')->withError('Terjadi kesalahan : '.$e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('user.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+            return redirect()->route('user.index')->withError('Terjadi kesalahan pada database : '.$e->getMessage());
         }
     }
 }
