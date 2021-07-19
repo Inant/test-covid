@@ -38,7 +38,7 @@ class PemeriksaanController extends Controller
             $getUsers = DB::table('pemeriksaan')
                 ->join('dokter', 'dokter.id_dokter', '=', 'pemeriksaan.id_dokter')
                 ->join('pasien', 'pasien.id_pasien', '=', 'pemeriksaan.id_pasien')
-                ->select('id_pemeriksaan', 'nama_pasien', 'nama_dokter', 'tgl_pemeriksaan')
+                ->select('id_pemeriksaan', 'no_reg', 'nama_pasien', 'nama_dokter', 'tgl_pemeriksaan')
                 ->orderByDesc('tgl_pemeriksaan')
             ;
 
@@ -48,8 +48,7 @@ class PemeriksaanController extends Controller
 
             $this->param['pemeriksaan'] = $getUsers->paginate(10);
         } catch (\Illuminate\Database\QueryException $e) {
-            dd($e);
-            // return redirect()->back()->withStatus('Terjadi Kesalahan');
+            return redirect()->back()->withStatus('Terjadi Kesalahan');
         }
 
         return \view('pemeriksaan.list-pemeriksaan', $this->param);
@@ -63,17 +62,7 @@ class PemeriksaanController extends Controller
     public function create(Request $request)
     {
         $this->param['btnRight']['text'] = 'Lihat Data';
-        $this->param['btnRight']['link'] = route('user.index');
-        $keyword = $request->get('keyword');
-        $getUsers = DB::table('pemeriksaan')
-            ->join('dokter', 'dokter.id_dokter', '=', 'pemeriksaan.id_dokter')
-            ->join('pasien', 'pasien.id_pasien', '=', 'pemeriksaan.id_pasien')
-            ->select('id_pemeriksaan', 'nama_pasien', 'nama_dokter', 'tgl_pemeriksaan')
-        ;
-        if ($keyword) {
-            $getUsers->where('name', 'LIKE', "%{$keyword}%")->orWhere('email', 'LIKE', "%{$keyword}%");
-        }
-        $this->param['pemeriksaan'] = $getUsers->paginate(10);
+        $this->param['btnRight']['link'] = route('pemeriksaan.index');
         $this->param['findAllDokter'] = Dokter::all();
         $this->param['findAllTipe'] = TipeTest::all();
         $this->param['dataPemeriksaan'] = null;
@@ -117,6 +106,7 @@ class PemeriksaanController extends Controller
                 $pemeriksaan->no_reg = $cookie['data_pemeriksaan']['no_reg'];
                 $pemeriksaan->id_pasien = $pasien->id_pasien;
                 $pemeriksaan->id_dokter = $dokter->id_dokter;
+                $pemeriksaan->pengirim = $cookie['data_pemeriksaan']['pengirim'];
                 $pemeriksaan->keterangan = 'Masih Default';
                 $pemeriksaan->tgl_pemeriksaan = now();
                 $pemeriksaan->save();
@@ -161,6 +151,15 @@ class PemeriksaanController extends Controller
      */
     public function show(Pemeriksaan $pemeriksaan)
     {
+        $this->param['btnRight']['text'] = 'Lihat Data';
+        $this->param['btnRight']['link'] = route('pemeriksaan.index');
+        $this->param['btnRight']['print'] = route('pemeriksaan.index');
+        $this->param['btnRight']['text_print'] = 'Cetak';
+        $this->param['pageTitle'] = 'Detail Pemeriksaan';
+        $this->param['pageIcon'] = 'notes-medical';
+        $this->param['pemeriksaan'] = $pemeriksaan->load('pasien', 'dokter');
+
+        return view('pemeriksaan.detail-pemeriksaan', $this->param);
     }
 
     /**
@@ -217,7 +216,7 @@ class PemeriksaanController extends Controller
 
         try {
             $cookie = json_decode($request->cookie('lara_list'), true);
-            $cookie_faktur = [
+            $cookie_pemeriksaan = [
                 'no_reg' => $request->no_reg,
                 'pengirim' => $request->pengirim,
                 'dokter' => $request->dokter,
@@ -225,7 +224,7 @@ class PemeriksaanController extends Controller
                 'umur' => $request->umur,
                 'alamat' => $request->alamat,
             ];
-            $cookie['data_pemeriksaan'] = $cookie_faktur;
+            $cookie['data_pemeriksaan'] = $cookie_pemeriksaan;
             $setCookie = cookie('lara_list', json_encode($cookie));
 
             return redirect()

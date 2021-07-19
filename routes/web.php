@@ -21,10 +21,13 @@ Route::get('/', function () {
 Route::get('dashboard', function () {
     return view('dashboard', ['pageTitle' => 'Dashboard', 'pageIcon' => 'tachometer-alt', 'title' => 'Dashboard']);
 })->name('dashboard');
-Route::resource('user', 'UserController');
-Route::resource('pemeriksaan', 'PemeriksaanController');
-Route::post('pemeriksaan/tambahpemeriksaan', [PemeriksaanController::class, 'tambahPemeriksaan'])->name('pemeriksaan.tambah.pemeriksaan');
-Route::post('pemeriksaan/tambahdetail', [PemeriksaanController::class, 'tambahDetailPemeriksaan'])->name('pemeriksaan.tambah.detail');
-Route::delete('pemeriksaan/hapusdetail/{id}', [PemeriksaanController::class, 'hapusDetailPemeriksaan'])->name('pemeriksaan.hapus.detail');
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('user', 'UserController');
+    Route::resource('pemeriksaan', 'PemeriksaanController');
+    Route::post('pemeriksaan/tambahpemeriksaan', [PemeriksaanController::class, 'tambahPemeriksaan'])->name('pemeriksaan.tambah.pemeriksaan');
+    Route::post('pemeriksaan/tambahdetail', [PemeriksaanController::class, 'tambahDetailPemeriksaan'])->middleware('check.detail')->name('pemeriksaan.tambah.detail');
+    Route::delete('pemeriksaan/hapusdetail/{id}', [PemeriksaanController::class, 'hapusDetailPemeriksaan'])->name('pemeriksaan.hapus.detail');
+});
 
 require __DIR__.'/auth.php';

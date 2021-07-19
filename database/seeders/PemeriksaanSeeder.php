@@ -41,6 +41,7 @@ class PemeriksaanSeeder extends Seeder
                 'tgl_pemeriksaan' => now('Asia/Jakarta'),
                 'keterangan' => 'tidak ada keterangan untuk sementara',
                 'no_reg' => 'nomer registrasi '.$i,
+                'pengirim' => 'iyek',
             ];
         }
         Pemeriksaan::insert($pemeriksaan);

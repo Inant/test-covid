@@ -19,6 +19,7 @@ class CreatePemeriksaansTable extends Migration
         Schema::create('pemeriksaan', function (Blueprint $table) {
             $table->increments('id_pemeriksaan');
             $table->string('no_reg', 50);
+            $table->string('pengirim', 50);
             $table->unsignedInteger('id_pasien');
             $table->unsignedTinyInteger('id_dokter');
             $table->text('keterangan');

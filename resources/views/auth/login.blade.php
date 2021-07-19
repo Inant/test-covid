@@ -25,7 +25,7 @@
                         <div class="form mt-3">
                             <form id="FormLogin" method="post" class="" action="{{ route('login') }}">
                                 @if ($errors->any())
-    
+
                                     @foreach ($errors->all() as $error)
                                         <div class="alert alert-primary d-flex align-items-center" role="alert">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -42,6 +42,12 @@
                                     @endforeach
                                 @endif
                                 @csrf
+                                @if (session('error'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    <i class="fa fa-times-circle"></i> {{session('error')}}
+                                </div>
+                                @endif
 
                                 <label for="">Email</label>
                                 <div class="form-underline">
