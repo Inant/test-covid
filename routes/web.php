@@ -25,6 +25,7 @@ Route::get('dashboard', function () {
 Route::middleware(['auth'])->group(function () {
     Route::resource('user', 'UserController');
     Route::resource('pemeriksaan', 'PemeriksaanController');
+    Route::resource('dokter', 'DokterController');
     Route::post('pemeriksaan/tambahpemeriksaan', [PemeriksaanController::class, 'tambahPemeriksaan'])->name('pemeriksaan.tambah.pemeriksaan');
     Route::post('pemeriksaan/tambahdetail', [PemeriksaanController::class, 'tambahDetailPemeriksaan'])->middleware('check.detail')->name('pemeriksaan.tambah.detail');
     Route::delete('pemeriksaan/hapusdetail/{id}', [PemeriksaanController::class, 'hapusDetailPemeriksaan'])->name('pemeriksaan.hapus.detail');

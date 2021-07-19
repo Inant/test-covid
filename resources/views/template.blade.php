@@ -168,6 +168,14 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="{{ url('dokter') }}"
+                                    class="{{ Request::segment(1) == 'dokter' ? 'mm-active' : '' }}">
+                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                    <i class="metismenu-icon fa fa-user-nurse icon-gradient bg-arielle-smile"></i>
+                                    Dokter
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ url('pemeriksaan') }}"
                                     class="{{ Request::segment(1) == 'pemeriksaan' ? 'mm-active' : '' }}">
                                     {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
