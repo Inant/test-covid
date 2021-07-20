@@ -80,6 +80,9 @@
                                                 <a href="{{ route('pemeriksaan.show', $item->id_pemeriksaan) }}" class="mr-2">
                                                     <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-md" data-toggle="tooltip" title="Edit" data-placement="top"><span class="fa fa-info-circle"></span></button>
                                                 </a>
+                                                <a href="{{ route('pemeriksaan.show', $item->id_pemeriksaan) }}" class="mr-2">
+                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-warning btn-md" data-toggle="tooltip" title="Edit" data-placement="top"><span class="fa fa-print"></span></button>
+                                                </a>
                                                 <form action="{{ route('user.destroy', $item->id_pemeriksaan) }}" method="post">
                                                     @csrf
                                                     @method('delete')
