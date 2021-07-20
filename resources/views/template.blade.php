@@ -176,6 +176,14 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="{{ url('jenis-pemeriksaan') }}"
+                                    class="{{ Request::segment(1) == 'jenis-pemeriksaan' ? 'mm-active' : '' }}">
+                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                    <i class="metismenu-icon fa fa-stethoscope icon-gradient bg-arielle-smile"></i>
+                                    Jenis Pemeriksaan
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ url('pemeriksaan') }}"
                                     class="{{ Request::segment(1) == 'pemeriksaan' ? 'mm-active' : '' }}">
                                     {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}

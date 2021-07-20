@@ -39,6 +39,6 @@ class Pemeriksaan extends Model
     {
         Carbon::setLocale('id');
 
-        return Carbon::createFromFormat('Y-m-d H:i:s', $value)->isoFormat('dddd, D MMMM Y');
+        return Carbon::createFromFormat('Y-m-d H:i:s', $value)->isoFormat('D MMMM Y');
     }
 }

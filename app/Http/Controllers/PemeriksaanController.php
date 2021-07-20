@@ -35,7 +35,7 @@ class PemeriksaanController extends Controller
 
         try {
             $keyword = $request->get('keyword');
-            $getUsers = DB::table('pemeriksaan')
+            $getPemeriksaan = DB::table('pemeriksaan')
                 ->join('dokter', 'dokter.id_dokter', '=', 'pemeriksaan.id_dokter')
                 ->join('pasien', 'pasien.id_pasien', '=', 'pemeriksaan.id_pasien')
                 ->select('id_pemeriksaan', 'no_reg', 'nama_pasien', 'nama_dokter', 'tgl_pemeriksaan')
@@ -43,10 +43,10 @@ class PemeriksaanController extends Controller
             ;
 
             if ($keyword) {
-                $getUsers->where('name', 'LIKE', "%{$keyword}%")->orWhere('email', 'LIKE', "%{$keyword}%");
+                $getPemeriksaan->where('nama_dokter', 'LIKE', "%{$keyword}%")->orWhere('nama_pasien', 'LIKE', "%{$keyword}%")->orWhere('no_reg', 'LIKE', "%{$keyword}%");
             }
 
-            $this->param['pemeriksaan'] = $getUsers->paginate(10);
+            $this->param['pemeriksaan'] = $getPemeriksaan->paginate(10);
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect()->back()->withStatus('Terjadi Kesalahan');
         }
@@ -303,5 +303,31 @@ class PemeriksaanController extends Controller
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect()->route('pemeriksaan.create')->withError('Terjadi kesalahan pada database : '.$e->getMessage());
         }
+    }
+
+    public function print($id)
+    {
+        // $this->param['btnRight']['text'] = 'Lihat Data';
+        // $this->param['btnRight']['link'] = route('pemeriksaan.index');
+        // $this->param['btnRight']['print'] = route('pemeriksaan.index');
+        // $this->param['btnRight']['text_print'] = 'Cetak';
+        // $this->param['pageTitle'] = 'Detail Pemeriksaan';
+        // $this->param['pageIcon'] = 'notes-medical';
+        $this->param['pemeriksaan'] = Pemeriksaan::with('pasien', 'dokter')->find($id);
+
+        return view('pemeriksaan.print-pemeriksaan', $this->param);
+    }
+    
+    public function showHasil($id)
+    {
+        // $this->param['btnRight']['text'] = 'Lihat Data';
+        // $this->param['btnRight']['link'] = route('pemeriksaan.index');
+        // $this->param['btnRight']['print'] = route('pemeriksaan.index');
+        // $this->param['btnRight']['text_print'] = 'Cetak';
+        // $this->param['pageTitle'] = 'Detail Pemeriksaan';
+        // $this->param['pageIcon'] = 'notes-medical';
+        $this->param['pemeriksaan'] = Pemeriksaan::with('pasien', 'dokter')->find($id);
+
+        return view('pemeriksaan.hasil-pemeriksaan', $this->param);
     }
 }

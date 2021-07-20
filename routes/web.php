@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
-
+Route::get('pemeriksaan/hasil-pemeriksaan/{id}', 'PemeriksaanController@showHasil')->name('pemeriksaan.hasil');
 Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', function () {
         return view('dashboard', ['pageTitle' => 'Dashboard', 'pageIcon' => 'tachometer-alt', 'title' => 'Dashboard']);
@@ -26,6 +26,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('user', 'UserController');
     Route::resource('pemeriksaan', 'PemeriksaanController');
     Route::resource('dokter', 'DokterController');
+    Route::resource('jenis-pemeriksaan', 'JenisPemeriksaanController');
+    Route::get('pemeriksaan/print/{id}', 'PemeriksaanController@print')->name('pemeriksaan.print');
+    
     Route::post('pemeriksaan/tambahpemeriksaan', [PemeriksaanController::class, 'tambahPemeriksaan'])->name('pemeriksaan.tambah.pemeriksaan');
     Route::post('pemeriksaan/tambahdetail', [PemeriksaanController::class, 'tambahDetailPemeriksaan'])->middleware('check.detail')->name('pemeriksaan.tambah.detail');
     Route::delete('pemeriksaan/hapusdetail/{id}', [PemeriksaanController::class, 'hapusDetailPemeriksaan'])->name('pemeriksaan.hapus.detail');

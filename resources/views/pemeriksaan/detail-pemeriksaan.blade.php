@@ -17,11 +17,13 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+                {{-- {!! QrCode::size(100)->generate(url('pemeriksaan/'.$pemeriksaan->id_pemeriksaan)); !!} --}}
                 <div class="row">
                     <div class="col-md-2 mb-3">
                         <a href="{{$btnRight['link']}}"><button class="btn btn-lg btn-primary"> <i class="fa fa-arrow-left mr-2"></i>{{$btnRight['text']}}</button></a>
                     </div>
                 </div>
+                
                 <div class="row">
                     <div class="col-md-6">
                         <div class="main-card mb-3 card">
@@ -57,7 +59,7 @@
                         <div class="main-card mb-3 card">
                             <div class="card-body">
                                 <h5 class="card-title">Detail Pemeriksaan</h5>
-                                <a href="{{$btnRight['print']}}">
+                                <a href="{{ route('pemeriksaan.print', $pemeriksaan->id_pemeriksaan) }}">
                                     <button class="btn btn-lg btn-warning"> <i class="fa fa-print mr-2"></i>{{$btnRight['text_print']}}</button>
                                 </a>
                                 <table class="align-middle mb-0 table table-borderless table-striped table-hover">

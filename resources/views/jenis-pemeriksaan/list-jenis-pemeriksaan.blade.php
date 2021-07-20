@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="main-card mb-3 card">
-                    <div class="card-header">List Pemeriksaan
+                    <div class="card-header">List Jenis Pemeriksaan
                         <div class="btn-actions-pane-right">
                             <form action="" method="get">
                                 <div class="input-group">
@@ -56,10 +56,8 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
-                                    <th>Register</th>
-                                    <th>Nama Dokter</th>
-                                    <th>Pasien</th>
-                                    <th>Tanggal Pemeriksaan</th>
+                                    <th>Jenis Pemeriksaan</th>
+                                    <th>Hasil Normal</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -68,22 +66,17 @@
                                     $page = Request::get('page');
                                     $no = !$page || $page == 1 ? 1 : ($page - 1) * 10 + 1;
                                 @endphp
-                                @foreach ($pemeriksaan as $item)
+                                @foreach ($jenisPemeriksaan as $item)
                                     <tr>
                                         <td class="text-center text-muted">{{ $no }}</td>
-                                        <td>{{ $item->no_reg }}</td>
-                                        <td>{{ $item->nama_dokter }}</td>
-                                        <td>{{ $item->nama_pasien }}</td>
-                                        <td>{{ $item->tgl_pemeriksaan }}</td>
+                                        <td>{{ $item->tipe }}</td>
+                                        <td>{{ $item->nilai_normal }}</td>
                                         <td>
                                             <div class="form-inline">
-                                                <a href="{{ route('pemeriksaan.show', $item->id_pemeriksaan) }}" class="mr-2">
-                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-md" data-toggle="tooltip" title="Detail" data-placement="top"><span class="fa fa-info-circle"></span></button>
+                                                <a href="{{ route('jenis-pemeriksaan.edit', $item->id_tipe) }}" class="mr-2">
+                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-md" data-toggle="tooltip" title="Edit" data-placement="top"><span class="fa fa-pen"></span></button>
                                                 </a>
-                                                <a href="{{ route('pemeriksaan.print', $item->id_pemeriksaan) }}" target="_blank" class="mr-2">
-                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-warning btn-md" data-toggle="tooltip" title="Cetak" data-placement="top"><span class="fa fa-print"></span></button>
-                                                </a>
-                                                <form action="{{ route('user.destroy', $item->id_pemeriksaan) }}" method="post">
+                                                <form action="{{ route('jenis-pemeriksaan.destroy', $item->id_tipe) }}" method="post">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="button" class="btn btn-danger btn-md" data-toggle="tooltip" title="Hapus" data-placement="top" onclick="confirm('{{ __("Apakah anda yakin ingin menghapus?") }}') ? this.parentElement.submit() : ''">
@@ -104,7 +97,7 @@
                                 </tr>
                             </tfoot>
                         </table>
-                        {{$pemeriksaan->appends(Request::all())->links('vendor.pagination.custom')}}
+                        {{$jenisPemeriksaan->appends(Request::all())->links('vendor.pagination.custom')}}
                     </div>
                 </div>
             </div>
