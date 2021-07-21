@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Klinik Dokterku</title>
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-asli.png') }}" type="image/x-icon">
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
@@ -61,8 +61,8 @@
             <div class="col-md-12">
                 <table width="100%">
                     <tr>
-                        <td style="text-align:left">
-                            <img src="{{ asset('assets/images/logo.png') }}" alt="">
+                        <td style="text-align:center">
+                            <img src="{{ asset('assets/images/logo-asli.png') }}" width="100" alt="">
                         </td>
                         <td style="text-align:center">
                             <h3 class="">LABORATORIUM KLINIK DOKTERKU</h3>
