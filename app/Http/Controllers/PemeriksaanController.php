@@ -74,7 +74,6 @@ class PemeriksaanController extends Controller
         if ($cookie && array_key_exists('detail_pemeriksaan', $cookie)) {
             $this->param['detailPemeriksaan'] = $cookie['detail_pemeriksaan'];
         }
-
         return \view('pemeriksaan.tambah-pemeriksaan', $this->param);
     }
 
@@ -107,8 +106,8 @@ class PemeriksaanController extends Controller
                 $pemeriksaan->id_pasien = $pasien->id_pasien;
                 $pemeriksaan->id_dokter = $dokter->id_dokter;
                 $pemeriksaan->pengirim = $cookie['data_pemeriksaan']['pengirim'];
-                $pemeriksaan->keterangan = 'Masih Default';
-                $pemeriksaan->tgl_pemeriksaan = now();
+                $pemeriksaan->keterangan = $cookie['data_pemeriksaan']['keterangan'];
+                $pemeriksaan->tgl_pemeriksaan = $cookie['data_pemeriksaan']['tgl_pemeriksaan'];
                 $pemeriksaan->save();
                 $id_pemeriksaan = $pemeriksaan->id_pemeriksaan;
 
@@ -199,6 +198,7 @@ class PemeriksaanController extends Controller
                 'name' => 'required',
                 'umur' => 'required',
                 'alamat' => 'required',
+                'tgl_pemeriksaan' => 'required',
             ],
             [
                 'required' => ':attribute tidak boleh kosong.',
@@ -211,6 +211,7 @@ class PemeriksaanController extends Controller
                 'name' => 'Nama Pasien',
                 'umur' => 'Umur',
                 'alamat' => 'Alamat',
+                'tgl_pemeriksaan' => 'Tanggal Pemeriksaan',
             ]
         );
 
@@ -223,6 +224,8 @@ class PemeriksaanController extends Controller
                 'name' => $request->name,
                 'umur' => $request->umur,
                 'alamat' => $request->alamat,
+                'tgl_pemeriksaan' => $request->tgl_pemeriksaan . ' ' . date('H:i:s'),
+                'keterangan' => $request->keterangan,
             ];
             $cookie['data_pemeriksaan'] = $cookie_pemeriksaan;
             $setCookie = cookie('lara_list', json_encode($cookie));

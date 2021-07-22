@@ -94,14 +94,33 @@
                                     @enderror
                                 </div>
                                 <div class="position-relative form-group col-md-4">
-                                    <label for="alamat" class="">Alamat</label>
-                                    <textarea name="alamat" id="alamat" placeholder="alamat" class="form-control @error('alamat') is-invalid @enderror">{{ ($dataPemeriksaan != null) ? $dataPemeriksaan['alamat'] : '' }}</textarea>
-                                    @error('email')
+                                    <label for="tgl_pemeriksaan" class="">Tanggal</label>
+                                    <input name="tgl_pemeriksaan" id="tgl_pemeriksaan" placeholder="No Registrasi" type="date" class="form-control @error('tgl_pemeriksaan') is-invalid @enderror" value="{{ ($dataPemeriksaan != null) ? $dataPemeriksaan['tgl_pemeriksaan'] : '' }}">
+                                    @error('tgl_pemeriksaan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
+                                <div class="position-relative form-group col-md-4">
+                                    <label for="alamat" class="">Alamat</label>
+                                    <textarea name="alamat" id="alamat" placeholder="alamat" class="form-control @error('alamat') is-invalid @enderror">{{ ($dataPemeriksaan != null) ? $dataPemeriksaan['alamat'] : '' }}</textarea>
+                                    @error('alamat')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="position-relative form-group col-md-4">
+                                    <label for="keterangan" class="">Keterangan</label>
+                                    <textarea name="keterangan" id="keterangan" placeholder="keterangan" class="form-control @error('keterangan') is-invalid @enderror">{{ ($dataPemeriksaan != null) ? $dataPemeriksaan['keterangan'] : '' }}</textarea>
+                                    @error('keterangan')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                
                             </div>
                             <button type="submit" class="mt-1 btn btn-primary">Simpan</button>
                         </form>
