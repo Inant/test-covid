@@ -23,7 +23,8 @@ class CreatePemeriksaansTable extends Migration
             $table->unsignedInteger('id_pasien');
             $table->unsignedTinyInteger('id_dokter');
             $table->text('keterangan');
-            $table->timestamp('tgl_pemeriksaan');
+            $table->dateTime('tgl_pemeriksaan');
+            $table->timestamps();
         });
     }
 

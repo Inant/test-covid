@@ -38,12 +38,13 @@
                 <div class="main-card mb-3 card">
                     <div class="card-body">
                         <h5 class="card-title">Data pemeriksaan</h5>
-                        <form action="{{ route('pemeriksaan.tambah.pemeriksaan') }}" method="post">
+                        <form action="{{ route('pemeriksaan.update', $dataPemeriksaan->id_pemeriksaan) }}" method="post">
+                            @method('PUT')
                             @csrf
                             <div class="row">
                                 <div class="position-relative form-group col-md-4">
                                     <label for="no_reg" class="">No Registrasi</label>
-                                    <input name="no_reg" id="no_reg" placeholder="No Registrasi" type="text" class="form-control @error('no_reg') is-invalid @enderror" value="{{ ($dataPemeriksaan != null) ? $dataPemeriksaan['no_reg'] : '' }}">
+                                    <input name="no_reg" id="no_reg" placeholder="No Registrasi" type="text" class="form-control @error('no_reg') is-invalid @enderror" value="{{ old('no_reg', $dataPemeriksaan->no_reg) }}">
                                     @error('no_reg')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -52,7 +53,7 @@
                                 </div>
                                 <div class="position-relative form-group col-md-4">
                                     <label for="pengirim" class="">Pengirim</label>
-                                    <input name="pengirim" id="pengirim" placeholder="Pengirim" type="text" class="form-control @error('pengirim') is-invalid @enderror" value="{{ ($dataPemeriksaan != null) ? $dataPemeriksaan['pengirim'] : '' }}">
+                                    <input name="pengirim" id="pengirim" placeholder="Pengirim" type="text" class="form-control @error('pengirim') is-invalid @enderror" value="{{ old('pengirim', $dataPemeriksaan->pengirim) }}">
                                     @error('pengirim')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -64,7 +65,7 @@
                                     <select name="dokter" id="dokter" class="form-control @error('dokter') is-invalid @enderror">
                                         <option value="">-- Pilih Dokter --</option>
                                         @foreach ($findAllDokter as $item)
-                                            <option value="{{ $item->id_dokter }}" {{ ($dataPemeriksaan != null && $dataPemeriksaan['dokter'] == $item->id_dokter) ? 'selected' : '' }} > {{$item->nama_dokter}} </option>
+                                            <option value="{{ $item->id_dokter }}" {{ ($item->id_dokter == old('dokter', $dataPemeriksaan->id_dokter)) ? 'selected' : '' }} > {{$item->nama_dokter}} </option>
                                         @endforeach
                                     </select>
                                     @error('dokter')
@@ -77,7 +78,7 @@
                             <div class="row">
                                 <div class="position-relative form-group col-md-4">
                                     <label for="nik" class="">NIK</label>
-                                    <input name="nik" id="nik" placeholder="NIK" type="text" class="form-control @error('nik') is-invalid @enderror" value="{{ ($dataPemeriksaan != null) ? $dataPemeriksaan['nik'] : '' }}">
+                                    <input name="nik" id="nik" placeholder="Nama Lengkap" type="text" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik', $dataPemeriksaan->pasien->nik) }}">
                                     @error('nik')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -86,7 +87,7 @@
                                 </div>
                                 <div class="position-relative form-group col-md-4">
                                     <label for="name" class="">Nama Lengkap</label>
-                                    <input name="name" id="name" placeholder="Nama Lengkap" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ ($dataPemeriksaan != null) ? $dataPemeriksaan['name'] : '' }}">
+                                    <input name="name" id="name" placeholder="Nama Lengkap" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $dataPemeriksaan->pasien->nama_pasien) }}">
                                     @error('name')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -95,7 +96,7 @@
                                 </div>
                                 <div class="position-relative form-group col-md-4">
                                     <label for="umur" class="">Umur</label>
-                                    <input name="umur" id="umur" placeholder="Umur" type="number" class="form-control @error('umur') is-invalid @enderror" value="{{ ($dataPemeriksaan != null) ? $dataPemeriksaan['umur'] : '' }}">
+                                    <input name="umur" id="umur" placeholder="Umur" type="number" class="form-control @error('umur') is-invalid @enderror" value="{{ old('umur', $dataPemeriksaan->pasien->umur) }}">
                                     @error('umur')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -104,7 +105,7 @@
                                 </div>
                                 <div class="position-relative form-group col-md-4">
                                     <label for="alamat" class="">Alamat</label>
-                                    <textarea name="alamat" id="alamat" placeholder="alamat" class="form-control @error('alamat') is-invalid @enderror">{{ ($dataPemeriksaan != null) ? $dataPemeriksaan['alamat'] : '' }}</textarea>
+                                    <textarea name="alamat" id="alamat" placeholder="alamat" class="form-control @error('alamat') is-invalid @enderror">{{ old('alamat', $dataPemeriksaan->pasien->alamat) }}</textarea>
                                     @error('alamat')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -113,7 +114,7 @@
                                 </div>
                                 <div class="position-relative form-group col-md-4">
                                     <label for="keterangan" class="">Keterangan</label>
-                                    <textarea name="keterangan" id="keterangan" placeholder="keterangan" class="form-control @error('keterangan') is-invalid @enderror">{{ ($dataPemeriksaan != null) ? $dataPemeriksaan['keterangan'] : '' }}</textarea>
+                                    <textarea name="keterangan" id="keterangan" placeholder="keterangan" class="form-control @error('keterangan') is-invalid @enderror">{{ old('keterangan', $dataPemeriksaan->keterangan) }}</textarea>
                                     @error('keterangan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -122,7 +123,7 @@
                                 </div>
                                 <div class="position-relative form-group col-md-4">
                                     <label for="tgl_pemeriksaan" class="">Tanggal</label>
-                                    <input name="tgl_pemeriksaan" id="tgl_pemeriksaan" placeholder="No Registrasi" type="date" class="form-control @error('tgl_pemeriksaan') is-invalid @enderror" value="{{ ($dataPemeriksaan != null) ? $dataPemeriksaan['tgl_pemeriksaan'] : '' }}">
+                                    <input name="tgl_pemeriksaan" id="tgl_pemeriksaan" placeholder="No Registrasi" type="date" class="form-control @error('tgl_pemeriksaan') is-invalid @enderror" value="{{ old('tgl_pemeriksaan', date('Y-m-d',strtotime($dataPemeriksaan->tgl_pemeriksaan))) }}">
                                     @error('tgl_pemeriksaan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -131,7 +132,7 @@
                                 </div>
                                 <div class="position-relative form-group col-md-4">
                                     <label for="jam" class="">Jam Pemeriksaan</label>
-                                    <input name="jam" id="jam" placeholder="Jam Pemeriksaan" class="form-control @error('jam') is-invalid @enderror" value="{{ ($dataPemeriksaan != null) ? $dataPemeriksaan['jam'] : '' }}">
+                                    <input name="jam" id="jam" placeholder="Jam Pemeriksaan" class="form-control @error('jam') is-invalid @enderror" value="{{ old('jam', date('H:i',strtotime($dataPemeriksaan->tgl_pemeriksaan))) }}">
                                     @error('jam')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -159,19 +160,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if ($detailPemeriksaan !== null)
+                                        @if ($dataPemeriksaan->details !== null)
                                             @php
                                                 $no = 1;
                                             @endphp
-                                            @foreach ($detailPemeriksaan as $key => $item)
+                                            @foreach ($dataPemeriksaan->details as $key => $item)
                                             <tr>
                                                 <td class="text-center text-muted">{{ $no }}</td>
-                                                <td>{{ $item['pemeriksaan'] }}</td>
-                                                <td>{{ $item['hasil'] }}</td>
-                                                <td>{{ $item['nilai_normal'] }}</td>
+                                                <td>{{ $item->tipe->tipe }}</td>
+                                                <td>{{ $item->hasil }}</td>
+                                                <td>{{ $item->tipe->nilai_normal }}</td>
                                                 <td>
                                                     <div class="form-inline">
-                                                        <form action="{{ route('pemeriksaan.hapus.detail', $key) }}" method="post">
+                                                        <form action="{{ route('pemeriksaan.detail.destroy', ['detail'=>$item->id_detail,'id_pemeriksaan'=>$dataPemeriksaan->id_pemeriksaan]) }}" method="post">
                                                             @csrf
                                                             @method('delete')
                                                             <button type="button" class="btn btn-danger btn-md" data-toggle="tooltip" title="Hapus" data-placement="top" onclick="confirm('{{ __("Apakah anda yakin ingin menghapus?") }}') ? this.parentElement.submit() : ''">
@@ -204,7 +205,7 @@
                         <div class="main-card mb-3 card">
                             <div class="card-body">
                                 <h5 class="card-title">Detail pemeriksaan</h5>
-                                <form action="{{ route('pemeriksaan.tambah.detail') }}" method="post">
+                                <form action="{{ route('pemeriksaan.store.detail', [$dataPemeriksaan->id_pemeriksaan]) }}" method="post">
                                     @csrf
                                     <div class="position-relative form-group">
                                         <label for="tipe_pemeriksaan" class="">Pemeriksaan</label>
@@ -238,12 +239,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="mb-3">
-                    <form action="{{ route('pemeriksaan.store') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-success" data-toggle="tooltip" title="Hapus" data-placement="top" onclick="confirm('{{ __("Apakah anda yakin ingin menyimpan semua ?") }}') ? this.parentElement.submit() : ''">Simpan Semua</button>
-                    </form>
                 </div>
             </div>
         </div>

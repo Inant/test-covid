@@ -77,6 +77,9 @@
                                         <td>{{ $item->tgl_pemeriksaan }}</td>
                                         <td>
                                             <div class="form-inline">
+                                                <a href="{{ route('pemeriksaan.edit', $item->id_pemeriksaan) }}" class="mr-2">
+                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-success btn-md" data-toggle="tooltip" title="Edit" data-placement="top"><span class="fa fa-edit"></span></button>
+                                                </a>
                                                 <a href="{{ route('pemeriksaan.show', $item->id_pemeriksaan) }}" class="mr-2">
                                                     <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-md" data-toggle="tooltip" title="Detail" data-placement="top"><span class="fa fa-info-circle"></span></button>
                                                 </a>

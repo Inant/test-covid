@@ -17,6 +17,8 @@ class DetailPemeriksaan extends Model
 
     protected $fillable = ['id_pemeriksaan','tipe_pemeriksaan','hasil'];
 
+    public $with = ['tipe'];
+
     public function tipe() {
         return $this->belongsTo(TipeTest::class,'tipe_pemeriksaan');
     }

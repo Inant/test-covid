@@ -23,7 +23,7 @@
                         <a href="{{$btnRight['link']}}"><button class="btn btn-lg btn-primary"> <i class="fa fa-arrow-left mr-2"></i>{{$btnRight['text']}}</button></a>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-6">
                         <div class="main-card mb-3 card">
@@ -31,7 +31,10 @@
                                 <h5 class="card-title">Data Pasien</h5>
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
-                                        Tanggal Pemeriksaan: <span class="text-capitalize"> {{$pemeriksaan->tgl_pemeriksaan}} </span>
+                                        Tanggal Pemeriksaan: <span class="text-capitalize"> {{$pemeriksaan->format_tgl_pemeriksaan}} </span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        NIK: <span class="text-capitalize alert alert-primary"> {{$pemeriksaan->pasien->nik}} </span>
                                     </li>
                                     <li class="list-group-item">
                                         Nama: <span class="text-capitalize"> {{$pemeriksaan->pasien->nama_pasien}} </span>

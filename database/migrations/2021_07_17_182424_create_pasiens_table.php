@@ -13,7 +13,8 @@ class CreatePasiensTable extends Migration
     {
         Schema::create('pasien', function (Blueprint $table) {
             $table->increments('id_pasien');
-            $table->string('nama_pasien')->nullable(false);
+            $table->string('nik', 18)->unique()->nullable(false);
+            $table->string('nama_pasien', 50)->nullable(false);
             $table->tinyInteger('umur')->nullable(false);
             $table->text('alamat')->nullable(false);
         });

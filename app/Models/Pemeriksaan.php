@@ -10,8 +10,6 @@ class Pemeriksaan extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $table = 'pemeriksaan';
 
     protected $primaryKey = 'id_pemeriksaan';
@@ -35,10 +33,8 @@ class Pemeriksaan extends Model
         return $this->belongsTo(Pasien::class, 'id_pasien');
     }
 
-    public function getTglPemeriksaanAttribute($value)
+    public function getFormatTglPemeriksaanAttribute()
     {
-        Carbon::setLocale('id');
-
-        return Carbon::createFromFormat('Y-m-d H:i:s', $value)->isoFormat('D MMMM Y');
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->tgl_pemeriksaan)->locale('id')->isoFormat('D MMMM Y H:mm');
     }
 }

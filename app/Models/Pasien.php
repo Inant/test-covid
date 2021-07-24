@@ -15,5 +15,5 @@ class Pasien extends Model
 
     protected $primaryKey = 'id_pasien';
 
-    protected $fillable = ['nama_pasien', 'umur', 'alamat'];
+    protected $fillable = ['nik', 'nama_pasien', 'umur', 'alamat'];
 }

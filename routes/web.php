@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\PemeriksaanController;
-use App\Http\Controllers\PrintController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,12 +27,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('dokter', 'DokterController');
     Route::resource('jenis-pemeriksaan', 'JenisPemeriksaanController');
     Route::get('pemeriksaan/print/{id}', 'PemeriksaanController@print')->name('pemeriksaan.print');
-    
+
     Route::post('pemeriksaan/tambahpemeriksaan', [PemeriksaanController::class, 'tambahPemeriksaan'])->name('pemeriksaan.tambah.pemeriksaan');
     Route::post('pemeriksaan/tambahdetail', [PemeriksaanController::class, 'tambahDetailPemeriksaan'])->middleware('check.detail')->name('pemeriksaan.tambah.detail');
+    Route::post('pemeriksaan/store/detail/{id_pemeriksaan}', [PemeriksaanController::class, 'storeDetail'])->name('pemeriksaan.store.detail');
     Route::delete('pemeriksaan/hapusdetail/{id}', [PemeriksaanController::class, 'hapusDetailPemeriksaan'])->name('pemeriksaan.hapus.detail');
+    Route::delete('pemeriksaan/destroy/detail/{detail}/{id_pemeriksaan}', [PemeriksaanController::class, 'destroyDetailPemeriksaan'])->name('pemeriksaan.detail.destroy');
 });
-
-Route::get('/cetak', [PrintController::class, 'index']);
 
 require __DIR__.'/auth.php';

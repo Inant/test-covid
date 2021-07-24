@@ -22,6 +22,7 @@ class PasienFactory extends Factory
     public function definition()
     {
         return [
+            'nik' => $this->faker->randomNumber(),
             'nama_pasien' => $this->faker->userName(),
             'umur' => random_int(20, 30),
             'alamat' => $this->faker->streetAddress(),
