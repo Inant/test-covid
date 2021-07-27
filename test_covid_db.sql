@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 21 Jul 2021 pada 06.24
+-- Waktu pembuatan: 25 Jul 2021 pada 13.21
 -- Versi server: 10.4.17-MariaDB
 -- Versi PHP: 7.4.14
 
@@ -34,33 +34,6 @@ CREATE TABLE `detail_pemeriksaan` (
   `hasil` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data untuk tabel `detail_pemeriksaan`
---
-
-INSERT INTO `detail_pemeriksaan` (`id_detail`, `id_pemeriksaan`, `tipe_pemeriksaan`, `hasil`) VALUES
-(1, 1, 1, 'NON REAKTIF'),
-(2, 1, 2, 'NON REAKTIF'),
-(3, 1, 3, 'NON REAKTIF'),
-(4, 1, 4, 'NON REAKTIF'),
-(5, 2, 1, 'NON REAKTIF'),
-(6, 2, 2, 'NON REAKTIF'),
-(7, 2, 3, 'NON REAKTIF'),
-(8, 2, 4, 'NON REAKTIF'),
-(9, 3, 1, 'NON REAKTIF'),
-(10, 3, 2, 'NON REAKTIF'),
-(11, 3, 3, 'NON REAKTIF'),
-(12, 3, 4, 'NON REAKTIF'),
-(13, 4, 1, 'NON REAKTIF'),
-(14, 4, 2, 'NON REAKTIF'),
-(15, 4, 3, 'NON REAKTIF'),
-(16, 4, 4, 'NON REAKTIF'),
-(17, 5, 1, 'NON REAKTIF'),
-(18, 5, 2, 'NON REAKTIF'),
-(19, 5, 3, 'NON REAKTIF'),
-(20, 5, 4, 'NON REAKTIF'),
-(21, 6, 2, 'NON REAKTIF');
-
 -- --------------------------------------------------------
 
 --
@@ -71,18 +44,6 @@ CREATE TABLE `dokter` (
   `id_dokter` tinyint(3) UNSIGNED NOT NULL,
   `nama_dokter` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data untuk tabel `dokter`
---
-
-INSERT INTO `dokter` (`id_dokter`, `nama_dokter`) VALUES
-(1, 'dr. Louis'),
-(2, 'isaias.bayer'),
-(3, 'nelda.hilpert'),
-(4, 'jmcclure'),
-(5, 'keebler.lemuel'),
-(6, 'dixie.haag');
 
 -- --------------------------------------------------------
 
@@ -120,11 +81,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2021_07_17_182358_create_pemeriksaans_table', 2),
-(5, '2021_07_17_182424_create_pasiens_table', 2),
-(6, '2021_07_17_182811_create_tipe_tests_table', 2),
-(7, '2021_07_17_195940_create_detail_pemeriksaans_table', 2),
-(8, '2021_07_17_201455_relationship_table', 2);
+(12, '2021_07_17_182358_create_pemeriksaans_table', 2),
+(13, '2021_07_17_182424_create_pasiens_table', 2),
+(14, '2021_07_17_182811_create_tipe_tests_table', 2),
+(15, '2021_07_17_195940_create_detail_pemeriksaans_table', 2),
+(16, '2021_07_17_201455_relationship_table', 2);
 
 -- --------------------------------------------------------
 
@@ -134,37 +95,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `pasien` (
   `id_pasien` int(10) UNSIGNED NOT NULL,
-  `nama_pasien` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nik` varchar(18) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_pasien` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `umur` tinyint(4) NOT NULL,
   `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data untuk tabel `pasien`
---
-
-INSERT INTO `pasien` (`id_pasien`, `nama_pasien`, `umur`, `alamat`) VALUES
-(1, 'clabadie', 27, '610 Wehner Canyon'),
-(2, 'ephraim38', 24, '708 Esmeralda Bypass'),
-(3, 'orrin.okon', 26, '64899 Stark Flats Suite 231'),
-(4, 'eloise01', 27, '730 Wiza Field Suite 015'),
-(5, 'nasir82', 27, '57500 Bernhard Place'),
-(6, 'norma53', 27, '59548 Jaclyn Track Apt. 078'),
-(7, 'qkling', 27, '4331 Alfonzo Pike Suite 291'),
-(8, 'gorczany.willa', 23, '71384 Amelia Extensions'),
-(9, 'cveum', 27, '681 Lilian Circles Suite 175'),
-(10, 'tsauer', 28, '8961 Lisa Highway'),
-(11, 'pfannerstill.reuben', 30, '511 Huels Pike'),
-(12, 'lessie.lueilwitz', 29, '50725 Kub Hill Suite 155'),
-(13, 'marion.lemke', 30, '50164 Stehr Dam'),
-(14, 'mzieme', 26, '24585 Skyla Passage'),
-(15, 'fgaylord', 23, '88583 Feeney Tunnel Apt. 781'),
-(16, 'trystan65', 24, '89043 Lavonne Trail Suite 577'),
-(17, 'gbarrows', 22, '959 Roger Courts'),
-(18, 'herzog.aidan', 25, '191 Collier Turnpike Apt. 640'),
-(19, 'marc19', 26, '8642 Bogisich Plains Apt. 418'),
-(20, 'sister24', 21, '96227 Skiles Row Suite 736'),
-(21, 'Dani', 22, 'Bangsal');
 
 -- --------------------------------------------------------
 
@@ -191,20 +126,10 @@ CREATE TABLE `pemeriksaan` (
   `id_pasien` int(10) UNSIGNED NOT NULL,
   `id_dokter` tinyint(3) UNSIGNED NOT NULL,
   `keterangan` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tgl_pemeriksaan` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `tgl_pemeriksaan` datetime NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data untuk tabel `pemeriksaan`
---
-
-INSERT INTO `pemeriksaan` (`id_pemeriksaan`, `no_reg`, `pengirim`, `id_pasien`, `id_dokter`, `keterangan`, `tgl_pemeriksaan`) VALUES
-(1, 'nomer registrasi 0', 'iyek', 9, 1, 'tidak ada keterangan untuk sementara', '2021-07-20 12:25:28'),
-(2, 'nomer registrasi 1', 'iyek', 6, 2, 'tidak ada keterangan untuk sementara', '2021-07-20 12:25:28'),
-(3, 'nomer registrasi 2', 'iyek', 6, 1, 'tidak ada keterangan untuk sementara', '2021-07-20 12:25:28'),
-(4, 'nomer registrasi 3', 'iyek', 7, 4, 'tidak ada keterangan untuk sementara', '2021-07-20 12:25:28'),
-(5, 'nomer registrasi 4', 'iyek', 8, 1, 'tidak ada keterangan untuk sementara', '2021-07-20 12:25:28'),
-(6, '111', 'Rsa', 21, 1, 'Masih Default', '2021-07-20 12:26:49');
 
 -- --------------------------------------------------------
 
@@ -217,17 +142,6 @@ CREATE TABLE `tipe_test` (
   `tipe` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nilai_normal` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data untuk tabel `tipe_test`
---
-
-INSERT INTO `tipe_test` (`id_tipe`, `tipe`, `nilai_normal`) VALUES
-(1, 'IMUNOSEROLOGI', 'NON REAKTIF'),
-(2, 'RAPID TEST COVID - 19', 'NON REAKTIF'),
-(3, 'igG COVID - 19', 'NON REAKTIF'),
-(4, 'igM COVID - 19', 'NON REAKTIF'),
-(5, 'PCR', 'NON REAKTIF');
 
 -- --------------------------------------------------------
 
@@ -287,7 +201,8 @@ ALTER TABLE `migrations`
 -- Indeks untuk tabel `pasien`
 --
 ALTER TABLE `pasien`
-  ADD PRIMARY KEY (`id_pasien`);
+  ADD PRIMARY KEY (`id_pasien`),
+  ADD UNIQUE KEY `pasien_nik_unique` (`nik`);
 
 --
 -- Indeks untuk tabel `password_resets`
@@ -322,13 +237,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `detail_pemeriksaan`
 --
 ALTER TABLE `detail_pemeriksaan`
-  MODIFY `id_detail` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_detail` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id_dokter` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_dokter` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
@@ -340,25 +255,25 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id_pasien` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_pasien` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `pemeriksaan`
 --
 ALTER TABLE `pemeriksaan`
-  MODIFY `id_pemeriksaan` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_pemeriksaan` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `tipe_test`
 --
 ALTER TABLE `tipe_test`
-  MODIFY `id_tipe` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_tipe` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

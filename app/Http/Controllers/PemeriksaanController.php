@@ -307,6 +307,24 @@ class PemeriksaanController extends Controller
      */
     public function destroy(Pemeriksaan $pemeriksaan)
     {
+        try{
+            $id = $pemeriksaan->id_pemeriksaan;
+
+            // delete pasien
+            Pasien::where('id_pasien', $pemeriksaan->id_pasien)->delete();
+
+            // delete detail pemeriksaan
+            DetailPemeriksaan::where('id_pemeriksaan', $id)->delete();
+
+            $pemeriksaan->delete();
+
+            return redirect()->route('pemeriksaan.index')->withStatus('Berhasil dihapus.');
+        }
+        catch (\Exception $e) {
+            return redirect()->route('pemeriksaan.index')->withError('Terjadi kesalahan. : '.$e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->route('pemeriksaan.index')->withError('Terjadi kesalahan pada database : '.$e->getMessage());
+        }
     }
 
     public function destroyDetailPemeriksaan(DetailPemeriksaan $detail, $id_pemeriksaan)

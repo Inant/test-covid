@@ -86,7 +86,7 @@
                                                 <a href="{{ route('pemeriksaan.print', $item->id_pemeriksaan) }}" target="_blank" class="mr-2">
                                                     <button type="button" id="PopoverCustomT-1" class="btn btn-warning btn-md" data-toggle="tooltip" title="Cetak" data-placement="top"><span class="fa fa-print"></span></button>
                                                 </a>
-                                                <form action="{{ route('user.destroy', $item->id_pemeriksaan) }}" method="post">
+                                                <form action="{{ route('pemeriksaan.destroy', $item->id_pemeriksaan) }}" method="post">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="button" class="btn btn-danger btn-md" data-toggle="tooltip" title="Hapus" data-placement="top" onclick="confirm('{{ __("Apakah anda yakin ingin menghapus?") }}') ? this.parentElement.submit() : ''">
