@@ -66,6 +66,7 @@
                         </td>
                         <td style="text-align:center">
                             <h3 class="">LABORATORIUM KLINIK DOKTERKU</h3>
+                            <p>No Izin : 445/1716/427.55.2019</p>
                             <p>Jl. Raya Tukum Rt 20 Rw 06 Kecamatan Tekung Kabupaten Lumajang</p>
                             <p>Telepon (0334) 8797171 Hp. 085854649375 Email : klinikdokterku@yahoo.com</p>
                         </td>

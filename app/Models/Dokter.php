@@ -19,4 +19,9 @@ class Dokter extends Model
     {
         $this->hasMany(Pemeriksaan::class, 'id_dokter');
     }
+    
+    public function pemeriksaanPcr()
+    {
+        $this->hasMany(PemeriksaanPcr::class, 'id_dokter');
+    }
 }

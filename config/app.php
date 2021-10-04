@@ -53,7 +53,8 @@ return [
 
     'url' => env('APP_URL', 'http://localhost/test-covid'),
 
-    'asset_url' => env('ASSET_URL', 'http://localhost/test-covid/public/assets'),
+    // 'asset_url' => env('ASSET_URL', 'http://localhost/test-covid/public/assets'),
+    'asset_url' => env('ASSET_URL', 'http://192.168.18.6/test-covid/public/assets'),
 
     /*
     |--------------------------------------------------------------------------

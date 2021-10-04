@@ -16,4 +16,8 @@ class Pasien extends Model
     protected $primaryKey = 'id_pasien';
 
     protected $fillable = ['nik', 'nama_pasien', 'umur', 'alamat'];
+
+    public function pemeriksaanPcr(){
+        return $this->hasMany(PemeriksaanPcr::class, 'id_pasien');
+    }
 }

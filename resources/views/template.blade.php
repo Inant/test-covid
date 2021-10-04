@@ -195,6 +195,22 @@
                                     Pemeriksaan
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ url('jenis-pemeriksaan-pcr') }}"
+                                    class="{{ Request::segment(1) == 'jenis-pemeriksaan-pcr' ? 'mm-active' : '' }}">
+                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                    <i class="metismenu-icon fa fa-stethoscope icon-gradient bg-arielle-smile"></i>
+                                    Jenis Pemeriksaan PCR
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('pemeriksaan-pcr') }}"
+                                    class="{{ Request::segment(1) == 'pemeriksaan-pcr' ? 'mm-active' : '' }}">
+                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                    <i class="metismenu-icon fa fa-notes-medical icon-gradient bg-arielle-smile"></i>
+                                    Pemeriksaan PCR
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -249,14 +265,14 @@
             </div>
         </div>
     </div>
-    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
     <script>
         ClassicEditor
             .create(document.querySelector('.ck-editor'))
             .catch(error => {
                 console.error(error);
             });
-    </script> --}}
+    </script>
 </body>
 
 </html>
